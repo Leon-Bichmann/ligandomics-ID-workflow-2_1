@@ -96,7 +96,14 @@ for mzml in mzmlFiles:
 
     #peptide search using comet
     commandComet = 'CometAdapter -in {i} -out {o} -threads 20 -database {d} -precursor_mass_tolerance {pmt} -fragment_bin_tolerance {fmt} -fragment_bin_offset {fbo} -num_hits {n} -digest_mass_range {dmr} -max_variable_mods_in_peptide {maxmod} -allowed_missed_cleavages 0'.format(i=mzml, o=idPath, d=fasta_decoy_path, pmt=pmt, fmt=fmt, fbo=fbo, n=num_hits, dmr=dmr, maxmod=maxmod) 
-    subprocess.call(commandComet.split() + ["-fixed_modifications", fixed, "-variable_modifications", variable, "-enzyme", "unspecific cleavage"],stderr=logfile, stdout=logfile)
+    if len(fixed) > 0 and len(variable) > 0:
+    	subprocess.call(commandComet.split() + ["-fixed_modifications", fixed, "-variable_modifications", variable, "-enzyme", "unspecific cleavage"],stderr=logfile, stdout=logfile)
+    elif len(fixed) > 0:
+	subprocess.call(commandComet.split() + ["-fixed_modifications", fixed, "-enzyme", "unspecific cleavage"],stderr=logfile, stdout=logfile)
+    elif len(variable) > 0:
+	subprocess.call(commandComet.split() + ["-variable_modifications", variable, "-enzyme", "unspecific cleavage"],stderr=logfile, stdout=logfile)
+    else:
+	subprocess.call(commandComet.split() + ["-enzyme", "unspecific cleavage"],stderr=logfile, stdout=logfile)
 
     #index decoy and target hits
     idresult_all=idPath.replace('.idXML','_all.idXML')
