@@ -42,13 +42,17 @@ centroided = ctd_params['centroided']
 fixed_mods = []
 variable_mods = []
 
+
+mod_dict = {'fixed_mod1': 'Carbamidomethyl (C)', 'variable_mod1': 'Oxidation (M)', 'variable_mod2': 'Phospho (S)', 'variable_mod3': 'Phospho (T)', 'variable_mod4': 'Phospho (Y)'}
+
+
 for c in ctd_params:
-    if 'Fixed' in c:
+    if 'fixed' in c:
         if ctd_params[c] == 'true':
-            fixed_mods.append(c.replace(' (Fixed)', ''))
-    elif 'Variable' in c:
+            fixed_mods.append(mod_dict[c])
+    elif 'variable' in c:
         if ctd_params[c] == 'true':
-            variable_mods.append(c.replace(' (Variable)', ''))
+            variable_mods.append(mod_dict[c])
 
 fixed = ' '.join(fixed_mods)
 variable = ' '.join(variable_mods)
