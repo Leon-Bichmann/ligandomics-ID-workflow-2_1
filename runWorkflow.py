@@ -43,12 +43,12 @@ fixed_mods = []
 variable_mods = []
 
 for c in ctd_params:
-    if 'fixed' in c:
+    if 'Fixed' in c:
         if ctd_params[c] == 'true':
-            fixed_mods.append(ctd_params[c].replace(' (Fixed)', ''))
-    elif 'variable' in c:
+            fixed_mods.append(c.replace(' (Fixed)', ''))
+    elif 'Variable' in c:
         if ctd_params[c] == 'true':
-            variable_mods.append(ctd_params[c].replace(' (Variable)', ''))
+            variable_mods.append(c.replace(' (Variable)', ''))
 
 fixed = ' '.join(fixed_mods)
 variable = ' '.join(variable_mods)
