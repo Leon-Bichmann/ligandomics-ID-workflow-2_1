@@ -104,9 +104,9 @@ for mzml in mzmlFiles:
     elif len(fixed) > 0:
 	subprocess.call(commandComet.split() + ["-fixed_modifications", fixed, "-enzyme", "unspecific cleavage"],stderr=logfile, stdout=logfile)
     elif len(variable) > 0:
-	subprocess.call(commandComet.split() + ["-fixed_modifications ", "-variable_modifications", variable, "-enzyme", "unspecific cleavage"],stderr=logfile, stdout=logfile)
+	subprocess.call(commandComet.split() + ["-fixed_modifications", "-variable_modifications", variable, "-enzyme", "unspecific cleavage"],stderr=logfile, stdout=logfile)
     else:
-	subprocess.call(commandComet.split() + ["-fixed_modification ", "-enzyme", "unspecific cleavage"],stderr=logfile, stdout=logfile)
+	subprocess.call(commandComet.split() + ["-fixed_modification", "-enzyme", "unspecific cleavage"],stderr=logfile, stdout=logfile)
 
     #index decoy and target hits
     idresult_all=idPath.replace('.idXML','_all.idXML')
