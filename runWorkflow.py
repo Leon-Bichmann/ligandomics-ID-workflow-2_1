@@ -184,7 +184,7 @@ for mzml in mzmlFiles:
     idexport_edit=pd.read_csv(mergeresult.replace('.featureXML', '_edit.csv'), sep=',')
     idexport_edit=idexport_edit[['sequence', 'rt', 'mz', 'intensity']]
     idexport_filtered=idexport_filtered.loc[idexport_filtered.groupby('sequence')['score'].idxmin()]
-    idexport_filtered=idexport_filtered[['sequence','score','expect_score','spectrum_reference','COMET:IonFrac','MS:1002252']]
+    idexport_filtered=idexport_filtered[['sequence','score','spectrum_reference','COMET:IonFrac','MS:1002252']]
     merged=idexport_edit.merge(idexport_filtered, on='sequence', how='left')
     num=idexport_rank1.groupby('sequence').apply(len).reset_index()
     num.columns=['sequence','num_psms']
@@ -197,12 +197,12 @@ for mzml in mzmlFiles:
         idexport_rank2=idexport_rank2[['sequence','accessions','score','MS:1002252','spectrum_reference']]
         idexport_rank2.columns=['sequence_rank2','accessions_rank2','score_rank2','MS:1002252_rank2','spectrum_reference']
         merged=merged.merge(idexport_rank2, on=['spectrum_reference'], how='left')
-        merged=merged[['spectrum_reference','sequence', 'score', 'rt', 'mz', 'intensity','accessions','num_psms','expect_score','COMET:IonFrac','MS:1002252','sequence_rank2','accessions_rank2','MS:1002252_rank2']]
-        merged.columns=['spectrum_reference','sequence', 'fdr', 'rt', 'mz', 'intensity','accessions','num_psms','expect_score','COMET:IonFrac','XCorr','sequence_rank2','accessions_rank2','XCorr_rank2']
+        merged=merged[['spectrum_reference','sequence', 'score', 'rt', 'mz', 'intensity','accessions','num_psms','COMET:IonFrac','MS:1002252','sequence_rank2','accessions_rank2','MS:1002252_rank2']]
+        merged.columns=['spectrum_reference','sequence', 'fdr', 'rt', 'mz', 'intensity','accessions','num_psms','COMET:IonFrac','XCorr','sequence_rank2','accessions_rank2','XCorr_rank2']
         merged['deltaCn']=(merged['XCorr']-merged['XCorr_rank2'])/merged['XCorr']
     else:
-        merged=merged[['spectrum_reference','sequence', 'score', 'rt', 'mz', 'intensity','accessions','num_psms','expect_score','COMET:IonFrac','MS:1002252']]
-        merged.columns=['spectrum_reference','sequence', 'fdr', 'rt', 'mz', 'intensity','accessions','num_psms','expect_score','COMET:IonFrac','XCorr']
+        merged=merged[['spectrum_reference','sequence', 'score', 'rt', 'mz', 'intensity','accessions','num_psms','COMET:IonFrac','MS:1002252']]
+        merged.columns=['spectrum_reference','sequence', 'fdr', 'rt', 'mz', 'intensity','accessions','num_psms','COMET:IonFrac','XCorr']
     merged.to_csv(mergeresult.replace('.featureXML', '_final_output.csv'))
 
 
