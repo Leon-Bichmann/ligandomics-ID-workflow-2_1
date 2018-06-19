@@ -132,14 +132,9 @@ for mzml in mzmlFiles:
     convert = 'TextExporter -in {f} -out {o} -id:add_hit_metavalues 0 -id:add_metavalues 0 -id:peptides_only'.format(f=idresult, o=idresult.replace('.idXML', '_rank1.csv'))
     subprocess.call(convert.split(),stderr=logfile, stdout=logfile)   
 
-    #calculate fdr
-    idresult_fdr = os.path.join(result_path, identifer_for_file.replace('.idXML', '_fdr.idXML'))
-    falseDiscovery = 'FalseDiscoveryRate -in {f} -out {o} -threads 20 -algorithm:add_decoy_peptides'.format(f=idresult,o=idresult_fdr)
-    subprocess.call(falseDiscovery.split(),stderr=logfile, stdout=logfile)
-
     #extract Percolator Features with PSMFeatureExtractor
     idresult_fdr_psm = os.path.join(result_path, identifer_for_file.replace('.idXML', '_fdr_psm.idXML'))
-    PSMFeat = 'PSMFeatureExtractor -in {f} -out {o} -threads 20'.format(f=idresult_fdr,o=idresult_fdr_psm)
+    PSMFeat = 'PSMFeatureExtractor -in {f} -out {o} -threads 20'.format(f=idresult,o=idresult_fdr_psm)
     subprocess.call(PSMFeat.split(),stderr=logfile, stdout=logfile)
 
     # run Percolator with PercolatorAdapter
