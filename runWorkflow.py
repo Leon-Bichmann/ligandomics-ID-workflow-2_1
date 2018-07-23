@@ -139,7 +139,7 @@ for mzml in mzmlFiles:
 
     # run Percolator with PercolatorAdapter
     idresult_perc = os.path.join(result_path, '{}_perc.idXML'.format(identifer_for_file))
-    Percolator = 'PercolatorAdapter -in {f} -out {o} -decoy-pattern DECOY -debug 10 -threads 20 -enzyme no_enzyme -trainFDR 0.05 -testFDR 0.05'.format(f=idresult_fdr_psm,o=idresult_perc)
+    Percolator = 'PercolatorAdapter -in {f} -out {o} -peptide-level-fdrs -debug 10 -threads 20 -enzyme no_enzyme -trainFDR 0.05 -testFDR 0.05'.format(f=idresult_fdr_psm,o=idresult_perc)
     subprocess.call(Percolator.split(),stderr=logfile, stdout=logfile)
 
     #filter by provided FDR value
